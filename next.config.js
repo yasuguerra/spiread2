@@ -5,7 +5,12 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    unoptimized: true, // Re‑enable optimization later if you host an image loader
+    // Enable optimization; allow Unsplash and Supabase storage buckets if used
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: '*.supabase.co' }
+    ],
+    formats: ['image/avif', 'image/webp']
   },
   experimental: {
     serverComponentsExternalPackages: ['mongodb'],

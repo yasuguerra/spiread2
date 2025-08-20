@@ -85,8 +85,8 @@ export default function HomePage() {
           setSessionId(newSessionId)
         }
         
-        // TEMPORARY BYPASS FOR PR A TESTING - Skip onboarding in development
-        if (process.env.NODE_ENV === 'development') {
+  // Skip onboarding outside production so E2E/tests/dev get direct access to training
+  if (process.env.NODE_ENV !== 'production') {
           setShowOnboarding(false)
           setActiveTab('training')
         } else {
@@ -282,7 +282,7 @@ export default function HomePage() {
               <Book className="w-4 h-4" />
               <span className="hidden sm:inline">RSVP</span>
             </TabsTrigger>
-            <TabsTrigger value="training" className="flex items-center gap-2">
+            <TabsTrigger value="training" className="flex items-center gap-2" data-testid="training">
               <Brain className="w-4 h-4" />
               <span className="hidden sm:inline">Training</span>
             </TabsTrigger>

@@ -1,11 +1,7 @@
-import * as React from "react"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
-
-
-import type { HTMLAttributes } from "react";
-
-type CardProps = HTMLAttributes<HTMLDivElement> & { className?: string };
+export type CardProps = React.HTMLAttributes<HTMLDivElement> & { className?: string };
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className, ...props }, ref) => (
   <div
@@ -52,4 +48,4 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardProps>(({ className, ...
 ));
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };

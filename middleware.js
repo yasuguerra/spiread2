@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
 import { rateLimitCheck } from './lib/rate-limit'
+import { isOriginAllowed, getAllowedOrigins } from './lib/env'
 
 /**
  * Security Middleware for Spiread
@@ -40,6 +41,21 @@ export async function middleware(request) {
   }
 
   const response = NextResponse.next()
+
+  // Basic CORS handling for API routes (refined from broad next.config.js approach)
+  if (pathname.startsWith('/api/')) {
+    const origin = request.headers.get('origin')
+    const allowed = isOriginAllowed(origin) ? origin : getAllowedOrigins().includes('*') ? '*' : ''
+    if (allowed) {
+      response.headers.set('Access-Control-Allow-Origin', allowed)
+      response.headers.set('Vary', 'Origin')
+      response.headers.set('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS')
+      response.headers.set('Access-Control-Allow-Headers', request.headers.get('access-control-request-headers') || '*')
+    }
+    if (request.method === 'OPTIONS') {
+      return response
+    }
+  }
 
   // Generate nonce for inline scripts (if needed)
   const nonce = Buffer.from(uuidv4()).toString('base64')

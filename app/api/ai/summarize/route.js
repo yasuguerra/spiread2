@@ -9,6 +9,7 @@ import {
   chunkText,
   generateLocalSummary
 } from '@/lib/ai-utils';
+import { ENV } from '@/lib/env';
 
 // Input validation schema
 const SummarizeSchema = z.object({
@@ -35,7 +36,19 @@ export async function POST(request) {
     // For MVP, we'll use a simple text extraction. In production, you'd fetch from your documents table
     const sampleText = "La lectura rápida es una habilidad que puede transformar tu productividad y capacidad de aprendizaje. Muchas personas leen a una velocidad promedio de 200-250 palabras por minuto, pero con entrenamiento adecuado es posible alcanzar velocidades de 500-800 palabras por minuto sin sacrificar la comprensión. El método RSVP presenta las palabras de manera secuencial en el mismo lugar, eliminando los movimientos oculares innecesarios que ralentizan la lectura tradicional.";
     
-    // Check user quota
+    // AI availability (env gate)
+    if (!ENV.AI_ENABLED || !ENV.OPENAI_API_KEY) {
+      const localSummary = generateLocalSummary(sampleText);
+      return NextResponse.json({
+        bullets: localSummary.bullets,
+        abstract: localSummary.abstract,
+        cached: false,
+        fallback: true,
+        message: 'AI deshabilitado. Resumen local.'
+      });
+    }
+
+    // Check user quota (central logic)
     const quotaCheck = await checkAndUpdateQuota(userId, 'summarize');
     if (!quotaCheck.allowed) {
       // Use local fallback when quota exceeded

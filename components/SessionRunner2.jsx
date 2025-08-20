@@ -77,6 +77,35 @@ export default function SessionRunner2({ template, onExit, onComplete }) {
   const pauseStartTime = useRef(null)
   const focusLostTime = useRef(null)
 
+  // Attempt to restore previous in-progress session (if within recent window < 12h)
+  useEffect(() => {
+    if (!userProfile?.id) return
+    // Find any saved session keys for this user
+    try {
+      const keys = Object.keys(localStorage).filter(k => k.startsWith('session_session_'))
+      // Pick most recent
+      let latest = null
+      keys.forEach(k => {
+        try {
+          const data = JSON.parse(localStorage.getItem(k))
+          if (data?.sessionId && data?.startTime) {
+            if (!latest || data.timestamp > latest.timestamp) latest = data
+          }
+        } catch {}
+      })
+      if (latest && Date.now() - latest.timestamp < 12 * 60 * 60 * 1000) {
+        setSessionData(latest)
+        setCurrentBlockIndex(latest.currentBlockIndex || 0)
+        setBlockTimeRemaining(latest.blockTimeRemaining || 0)
+        setSessionTimeElapsed(latest.sessionTimeElapsed || 0)
+        setGameProgress(latest.gameProgress || {})
+        setSessionState('paused') // start in paused state for explicit user action
+      }
+    } catch (e) {
+      console.warn('Failed to restore previous session', e)
+    }
+  }, [userProfile])
+
   // Initialize session
   useEffect(() => {
     if (sessionTemplate && userProfile?.id) {

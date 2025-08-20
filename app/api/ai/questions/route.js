@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import openai from '@/lib/openai';
 import { supabase } from '@/lib/supabase';
 import { toDbFormat, fromDbFormat } from '@/lib/dbCase';
+import { ENV } from '@/lib/env';
 
 export const runtime = 'nodejs';
 
@@ -56,8 +57,7 @@ export async function POST(request) {
     const { docId, locale, n, userId } = validationResult.data;
     
     // Check if AI is enabled
-    const aiEnabled = process.env.AI_ENABLED === 'true';
-    if (!aiEnabled) {
+  if (!ENV.AI_ENABLED || !(ENV.OPENAI_API_KEY || ENV.EMERGENT_LLM_KEY)) {
       const fallbackQuestions = generateLocalQuestions(docId, locale, n);
       return NextResponse.json({
         items: fallbackQuestions,
@@ -69,7 +69,7 @@ export async function POST(request) {
         },
         cached: false,
         fallback: true,
-        message: 'AI disabled, using local fallback'
+    message: 'AI disabled or no provider, using local fallback'
       });
     }
     
@@ -119,25 +119,7 @@ export async function POST(request) {
     }
     
     // Determine AI provider
-    const openAiKey = process.env.OPENAI_API_KEY;
-    const emergentKey = process.env.EMERGENT_LLM_KEY;
-    const provider = openAiKey ? 'openai' : 'emergent';
-    
-    if (!openAiKey && !emergentKey) {
-      const fallbackQuestions = generateLocalQuestions(docId, locale, n);
-      return NextResponse.json({
-        items: fallbackQuestions,
-        meta: {
-          docId,
-          locale,
-          chunkIds: ['fallback'],
-          model: 'local'
-        },
-        cached: false,
-        fallback: true,
-        message: 'No AI provider available'
-      });
-    }
+  const provider = ENV.OPENAI_API_KEY ? 'openai' : (ENV.EMERGENT_LLM_KEY ? 'emergent' : 'local');
     
     // Prepare text for processing
     const textToProcess = selectedChunks.join('\n\n');

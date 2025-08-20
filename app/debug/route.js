@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { ENV } from '@/lib/env'
 
 export async function GET(request) {
   try {
@@ -14,12 +15,12 @@ export async function GET(request) {
 
     // Feature flags
     const features = {
-      aiEnabled: process.env.AI_ENABLED === 'true',
-      pwaEnabled: process.env.PWA_ENABLED === 'true',
-      stripeEnabled: process.env.STRIPE_ENABLED === 'true',
-      analyticsEnabled: process.env.ANALYTICS_DISABLED !== 'true',
-      sentryEnabled: process.env.SENTRY_ENABLED === 'true',
-      cspEnabled: true // CSP is always enabled via middleware
+      aiEnabled: ENV.AI_ENABLED,
+      pwaEnabled: (process.env.PWA_ENABLED || 'false') === 'true',
+      stripeEnabled: (process.env.STRIPE_ENABLED || 'false') === 'true',
+      analyticsEnabled: (process.env.ANALYTICS_DISABLED || 'false') !== 'true',
+      sentryEnabled: (process.env.SENTRY_ENABLED || 'false') === 'true',
+      cspEnabled: true
     }
 
     // Security configuration

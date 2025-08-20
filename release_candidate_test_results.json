@@ -1,0 +1,228 @@
+{
+  "phase1_pwa": {
+    "debug_endpoint": {
+      "url": "https://brain-games-2.preview.emergentagent.com/debug",
+      "status_code": 502,
+      "content_type": "",
+      "content_length": 0,
+      "response_time": 0.018008,
+      "success": false,
+      "error": "Expected content-type application/json, got "
+    },
+    "service_worker": {
+      "url": "https://brain-games-2.preview.emergentagent.com/sw.js",
+      "status_code": 502,
+      "content_type": "",
+      "content_length": 0,
+      "response_time": 0.034413,
+      "success": false,
+      "error": "Expected content-type application/javascript, got "
+    },
+    "manifest": {
+      "url": "https://brain-games-2.preview.emergentagent.com/manifest.json",
+      "status_code": 502,
+      "content_type": "",
+      "content_length": 0,
+      "response_time": 0.015121,
+      "success": false,
+      "error": "Expected content-type application/json, got "
+    }
+  },
+  "phase2_seo_legal": {
+    "robots_txt": {
+      "url": "https://brain-games-2.preview.emergentagent.com/robots.txt",
+      "status_code": 502,
+      "content_type": "",
+      "content_length": 0,
+      "response_time": 0.01611,
+      "success": false,
+      "error": "Expected content-type text/plain, got "
+    },
+    "sitemap_xml": {
+      "url": "https://brain-games-2.preview.emergentagent.com/sitemap.xml",
+      "status_code": 502,
+      "content_type": "",
+      "content_length": 0,
+      "response_time": 0.01795,
+      "success": false,
+      "error": "Expected content-type application/xml, got "
+    },
+    "meta_tags": {
+      "success": false,
+      "error": "HTTPSConnectionPool(host='read-faster-2.preview.emergentagent.com', port=443): Read timed out. (read timeout=30)",
+      "url": "https://brain-games-2.preview.emergentagent.com/"
+    },
+    "_legal_privacy": {
+      "url": "https://brain-games-2.preview.emergentagent.com/legal/privacy",
+      "status_code": 200,
+      "content_type": "text/html; charset=utf-8",
+      "content_length": 20530,
+      "response_time": 24.199544,
+      "success": true,
+      "legal_validation": {
+        "has_content": true,
+        "has_title": false,
+        "has_contact_info": true,
+        "has_date": true,
+        "proper_structure": true
+      },
+      "legal_all_valid": false,
+      "content_size": 20435
+    },
+    "_legal_terms": {
+      "url": "https://brain-games-2.preview.emergentagent.com/legal/terms",
+      "status_code": 502,
+      "content_type": "",
+      "content_length": 0,
+      "response_time": 0.127543,
+      "success": false,
+      "error": "Expected content-type text/html, got "
+    }
+  },
+  "phase3_accessibility": {
+    "error_404": {
+      "url": "https://brain-games-2.preview.emergentagent.com/nonexistent-page-test-404",
+      "status_code": 502,
+      "content_type": "",
+      "content_length": 0,
+      "response_time": 0.022242,
+      "success": false,
+      "error": "Expected content-type text/html, got "
+    },
+    "content_accessibility": {
+      "url": "https://brain-games-2.preview.emergentagent.com/",
+      "status_code": 502,
+      "content_type": "",
+      "content_length": 0,
+      "response_time": 0.017913,
+      "success": false,
+      "error": "Expected content-type text/html, got "
+    }
+  },
+  "summary": {
+    "total": 13,
+    "passed": 1,
+    "failed": 12,
+    "success_rate": 7.6923076923076925
+  },
+  "go_no_go_checklist": {
+    "url": "https://brain-games-2.preview.emergentagent.com/debug",
+    "status_code": 200,
+    "content_type": "application/json",
+    "content_length": 3499,
+    "response_time": 0.13889,
+    "success": true,
+    "go_no_go_validation": {
+      "version_rc": true,
+      "overall_status_ready": true,
+      "security_ok": false,
+      "observability_ok": false,
+      "analytics_ok": false,
+      "pwa_ok": false,
+      "seo_legal_ok": false,
+      "release_blockers_empty": true,
+      "recommendations_present": true
+    },
+    "go_no_go_all_valid": false,
+    "release_blockers_count": 0,
+    "recommendations_count": 3
+  },
+  "critical_production_endpoints": {
+    "endpoints": {
+      "/debug": {
+        "url": "https://brain-games-2.preview.emergentagent.com/debug",
+        "status_code": 200,
+        "content_type": "application/json",
+        "content_length": 3499,
+        "response_time": 0.053784,
+        "success": true
+      },
+      "/sw.js": {
+        "url": "https://brain-games-2.preview.emergentagent.com/sw.js",
+        "status_code": 200,
+        "content_type": "application/javascript; charset=UTF-8",
+        "content_length": 19027,
+        "response_time": 0.036653,
+        "success": true
+      },
+      "/manifest.json": {
+        "url": "https://brain-games-2.preview.emergentagent.com/manifest.json",
+        "status_code": 200,
+        "content_type": "application/json; charset=UTF-8",
+        "content_length": 3119,
+        "response_time": 0.017191,
+        "success": true
+      },
+      "/robots.txt": {
+        "url": "https://brain-games-2.preview.emergentagent.com/robots.txt",
+        "status_code": 200,
+        "content_type": "text/plain",
+        "content_length": 300,
+        "response_time": 0.03906,
+        "success": true
+      },
+      "/sitemap.xml": {
+        "url": "https://brain-games-2.preview.emergentagent.com/sitemap.xml",
+        "status_code": 200,
+        "content_type": "application/xml",
+        "content_length": 835,
+        "response_time": 0.047922,
+        "success": true
+      },
+      "/": {
+        "url": "https://brain-games-2.preview.emergentagent.com/",
+        "status_code": 200,
+        "content_type": "text/html; charset=utf-8",
+        "content_length": 11286,
+        "response_time": 27.885524,
+        "success": true
+      },
+      "/legal/privacy": {
+        "url": "https://brain-games-2.preview.emergentagent.com/legal/privacy",
+        "status_code": 502,
+        "content_type": "",
+        "content_length": 0,
+        "response_time": 0.104399,
+        "success": false,
+        "error": "Expected content-type text/html, got "
+      },
+      "/legal/terms": {
+        "url": "https://brain-games-2.preview.emergentagent.com/legal/terms",
+        "status_code": 502,
+        "content_type": "",
+        "content_length": 0,
+        "response_time": 0.016128,
+        "success": false,
+        "error": "Expected content-type text/html, got "
+      },
+      "/offline": {
+        "url": "https://brain-games-2.preview.emergentagent.com/offline",
+        "status_code": 502,
+        "content_type": "",
+        "content_length": 0,
+        "response_time": 0.017812,
+        "success": false,
+        "error": "Expected content-type text/html, got "
+      }
+    },
+    "all_working": false,
+    "working_count": 6,
+    "total_count": 9,
+    "success_rate": 66.66666666666666
+  },
+  "release_and_security": {
+    "release_notes": false,
+    "security_headers": {},
+    "rate_limiting": false
+  },
+  "release_candidate_decision": {
+    "approved": false,
+    "success_criteria": {
+      "go_no_go_ready": false,
+      "critical_endpoints_working": null,
+      "overall_success_high": false
+    },
+    "overall_success_rate": 7.6923076923076925,
+    "timestamp": "2025-08-15T02:49:09.049036"
+  }
+}
